@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "DotTech";
+}
+
+<h2>DotTech</h2>
+
+<div id="buttonDiv">
+    
+</div>
+
+<script>
+    var fade = 1;
+    var prop1 = 20;
+    var prop2 = 5;
+    var hit = 75
+
+    var dimX = 20;
+    var dimY = 10;
+
+    var red = 0;
+    var green = 0;
+    var blue = 0;
+
+    var colors = [ "#FFFFFF"];
+    for (var c = 10; c > 0; c--) {
+        var O = c * (255 / 10);
+        if (O < 0) G = 0;
+        O = parseInt(O).toString(16);
+        if (O.length == 1) O = "0" + O;
+        var clr = "#" + O + "FF" + O;
+        colors.push(clr);
+    }
+
+    for (var c = 0; c < 255; c++) {
+        var R = (255 * c) / 255;
+        var G = (255 * (255 - c)) / 255;
+        var B = 0;
+
+        if (R < 0) R = 0;
+        if (G < 0) G = 0;
+        if (B < 0) B = 0;
+
+        var clr = "#";
+        R = parseInt(R).toString(16);
+        G = parseInt(G).toString(16);
+        B = parseInt(B).toString(16);
+
+        if (R.length == 1) R = "0" + R;
+        if (G.length == 1) G = "0" + G;
+        if (B.length == 1) B = "0" + B;
+
+        var clr = "#" + R + G + B;
+        if (clr.length > 7)
+            var z = "";
+        else
+            colors.push(clr);
+    }
+
+    function dotTech(x, y) {
+        var self = this;
+        self.x = x;
+        self.y = y;
+        self.value = 0;
+        self.clicked = function () {
+            self.value+= hit;
+            self.updateButton();
+            propigate(self.x, self.y);
+        }
+
+        self.propigate = function (x, y) {     
+            if (!(x == self.x && y == self.y)) {
+                var xOK = (self.x == x || self.x == x - 1 || self.x == x + 1);
+                var yOK = (self.y == y || self.y == y - 1 || self.y == y + 1);
+                if (xOK && yOK) {
+                    self.value += prop1;
+                    self.updateButton();
+                } else {
+                    var xOK = (self.x >= x - 2 && self.x <= x + 2);
+                    var yOK = (self.y >= y - 2 && self.y <= y + 2);
+                    if (xOK && yOK) {
+                        self.value += prop2;
+                        self.updateButton();
+                    }
+                } 
+            }
+        }
+
+        self.coolDown = function () {
+            if (self.value > 0) {
+                //self.value -= fade;
+                self.value -= (self.value * 0.2);
+                self.value = parseInt(self.value);
+                self.updateButton();
+            }
+        }
+
+        self.updateButton = function () {
+            document.getElementById("dot" + self.x + "" + self.y).innerText = self.value;
+            if (parseInt(self.value) < 265)
+                document.getElementById("dot" + self.x + "" + self.y).style.backgroundColor = colors[self.value];
+            else 
+                document.getElementById("dot" + self.x + "" + self.y).style.backgroundColor = colors[265];
+        }
+    }
+
+    function propigate(x, y) {
+        for (var d = 0; d < dimX * dimY; d++) {
+            dots[d].propigate(x, y);
+        }
+    }
+
+    function clicked(x, y) {
+        dots[(x * dimX) + y].clicked();        
+    }
+
+    var table = "<table>";
+    var dots = [];
+    
+    for (var x = 0; x < dimY; x++) {
+        table += "<tr>";
+        for (var y = 0; y < dimX; y++) {
+            table += '<td><button onclick="clicked(' + x + ',' + y + ')" id="dot' + x + '' + y + '" style="margin-left:10px;width:50px;height:50px;">0</button></td>';
+            dots.push(new dotTech(x, y));            
+        }
+        table += '</tr><tr><td colspan="5" style="height:10px;"></td></tr>';
+    }
+    document.getElementById("buttonDiv").innerHTML = table;
+
+    for (var d = 0; d < dimX * dimY; d++) {
+        dots[d].updateButton();
+    }
+   
+    setInterval(function () {
+        for (var d = 0; d < dimX * dimY; d++) {
+            dots[d].coolDown();
+        }
+    }, 1000);
+
+</script>

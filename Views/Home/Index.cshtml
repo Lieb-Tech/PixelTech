@@ -1,0 +1,9 @@
+﻿@for (var i = 0; i < ViewBag.count - ViewBag.stride; i += 1)
+{
+    <img src="~/@ViewBag.images[i]" height="100" width="100" />
+    for (var x = 0; x < ViewBag.stride; x++)
+    {
+        <img src="~/@ViewBag.images[++i]" height="100" width="100" />
+    }
+    <BR />
+}

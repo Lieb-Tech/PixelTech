@@ -1,0 +1,306 @@
+﻿<br />
+Index: <span id="curIdx"></span><br />
+<BR />
+<table id="tbl" style="border:solid 1px black;">
+
+</table>
+
+<script>
+    var charA = {
+        A: [0, 1, 1, 0],
+        B: [1, 0, 0, 1],
+        C: [1, 1, 1, 1],
+        E: [1, 0, 0, 1],
+        F: [1, 0, 0, 1],
+    };
+
+    var charB = {
+        A: [1, 1, 1, 0],
+        B: [1, 0, 0, 1],
+        C: [1, 1, 1, 0],
+        E: [1, 0, 0, 1],
+        F: [1, 1, 1, 0],
+    };
+
+    var charC = {
+        A: [0, 1, 1, 1],
+        B: [1, 0, 0, 0],
+        C: [1, 0, 0, 0],
+        E: [1, 0, 0, 0],
+        F: [0, 1, 1, 1],
+    };
+
+    var charE = {
+        A: [1, 1, 1, 1],
+        B: [1, 0, 0, 0],
+        C: [1, 1, 1, 0],
+        E: [1, 0, 0, 0],
+        F: [1, 1, 1, 1],
+    };
+
+    var charH = {
+        A: [1, 0, 0, 1],
+        B: [1, 0, 0, 1],
+        C: [1, 1, 1, 1],
+        E: [1, 0, 0, 1],
+        F: [1, 0, 0, 1],
+    };
+
+    var charL = {
+        A: [1, 0, 0, 0],
+        B: [1, 0, 0, 0],
+        C: [1, 0, 0, 0],
+        E: [1, 0, 0, 0],
+        F: [1, 1, 1, 1],
+    };
+
+    var charO = {
+        A: [0, 1, 1, 0],
+        B: [1, 0, 0, 1],
+        C: [1, 0, 0, 1],
+        E: [1, 0, 0, 1],
+        F: [0, 1, 1, 0],
+    };
+
+    var charR = {
+        A: [1, 1, 1, 0],
+        B: [1, 0, 0, 1],
+        C: [1, 1, 1, 0],
+        E: [1, 0, 1, 0],
+        F: [1, 0, 0, 1],
+    };
+
+    var charT = {
+        A: [1, 1, 1],
+        B: [0, 1, 0],
+        C: [0, 1, 0],
+        E: [0, 1, 0],
+        F: [0, 1, 0],
+    };
+
+    var charN = {
+        A: [1, 0, 0, 0, 1],
+        B: [1, 1, 0, 0, 1],
+        C: [1, 0, 1, 0, 1],
+        E: [1, 0, 0, 1, 1],
+        F: [1, 0, 0, 0, 1],
+    };
+
+    var charM = {
+        A: [1, 0, 0, 0, 1],
+        B: [1, 1, 0, 1, 1],
+        C: [1, 0, 1, 0, 1],
+        E: [1, 0, 0, 0, 1],
+        F: [1, 0, 0, 0, 1],
+    };
+
+    var charAMPER = {
+        A: [0, 0, 1, 0, 0],
+        B: [0, 1, 1, 0, 0],
+        C: [1, 0, 1, 0, 0],
+        E: [0, 1, 1, 1, 0],
+        F: [0, 0, 1, 0, 0],
+    };
+
+    var charSPACE = {
+        A: [0],
+        B: [0],
+        C: [0],
+        E: [0],
+        F: [0],
+    };
+
+    var charEXCLAIM = {
+        A: [1, 0, 0],
+        B: [1, 0, 0],
+        C: [1, 0, 0],
+        E: [0, 0, 0],
+        F: [1, 0, 0],
+    }
+
+    var charPERIOD = {
+        A: [0, 0, 0],
+        B: [0, 0, 0],
+        C: [0, 0, 0],
+        E: [0, 0, 0],
+        F: [1, 0, 0],
+    };
+
+    var charCOMMA = {
+        A: [0, 0, 0],
+        B: [0, 0, 0],
+        C: [0, 0, 0],
+        E: [0, 0, 0],
+        F: [1, 0, 0],
+        G: [1, 0, 0],
+    };
+
+    var sentence = [
+        charH, charSPACE, charE, charSPACE, charL, charSPACE, charL, charSPACE, charO, charCOMMA,
+        charC, charSPACE, charA, charSPACE, charR, charSPACE, charO, charSPACE, charL, charSPACE,
+        charAMPER,
+        charM, charSPACE, charA, charSPACE, charR, charSPACE, charT, charSPACE, charE, charSPACE, charN,
+        charSPACE, charEXCLAIM
+    ];
+    var width = 20;
+    var height = 10;
+    var letterHeight = 5;    
+
+    var letterSize = 5;
+    var index = 0;
+    var idxSize = (sentence.length * letterSize) + width + width; 
+    var row0 = [idxSize];
+    var row1 = [idxSize];
+    var row2 = [idxSize];
+    var row3 = [idxSize];
+    var row4 = [idxSize];
+    var row5 = [idxSize];
+    var row6 = [idxSize];
+    var row7 = [idxSize];
+    var row8 = [idxSize];
+    var row9 = [idxSize];
+
+    var out0 = [width];
+    var out1 = [width];
+    var out2 = [width];
+    var out3 = [width];
+    var out4 = [width];
+    var out5 = [width];
+    var out6 = [width];
+    var out7 = [width];
+    var out8 = [width];
+    var out9 = [width];
+
+    var maxIdex = 0;
+
+    function buildTable() {
+        var html = "";
+        for (var h = 0; h < height; h++) {
+            html += "<tr style='height:20px;'>";
+            for (var w = 0; w < width; w++) {
+                html += "<td style='border:solid 1px black;width:20px;'><span id='" + w + "-" + h + "'>&nbsp;&nbsp;&nbsp;</span><td>";
+            }
+            html += "<tr>";
+        }
+
+        document.getElementById("tbl").innerHTML = html;
+    }
+
+    function runIt() {
+        if (index > maxIdex)
+            clearInterval(tmr);
+        else {
+            index++;
+            var idx = 0;
+            for (var i = index; i < width + index; i++) {
+                if (i < maxIdex) {
+                    if (row0[i] != out0[idx])
+                        out0[idx] = row0[i];
+                    if (row1[i] != out1[idx])
+                        out1[idx] = row1[i];
+                    if (row2[i] != out2[idx])
+                        out2[idx] = row2[i];
+                    if (row3[i] != out3[idx])
+                        out3[idx] = row3[i];
+                    if (row4[i] != out4[idx])
+                        out4[idx] = row4[i];
+                    if (row5[i] != out5[idx])
+                        out5[idx] = row5[i];
+                    if (row6[i] != out6[idx])
+                        out6[idx] = row6[i];
+                    if (row7[i] != out7[idx])
+                        out7[idx] = row7[i];
+                    if (row8[i] != out8[idx])
+                        out8[idx] = row8[i];
+                    if (row9[i] != out9[idx])
+                        out9[idx] = row9[i];
+                }
+                else {
+                    out0[idx] = 0;
+                    out1[idx] = 0;
+                    out2[idx] = 0;
+                    out3[idx] = 0;
+                    out4[idx] = 0;
+                    out5[idx] = 0;
+                    out6[idx] = 0;
+                    out7[idx] = 0;
+                    out8[idx] = 0;
+                    out9[idx] = 0;
+                }
+                idx++;
+            }
+            document.getElementById("curIdx").innerText = index + " (" + index + ":" + (width + index) + ")";
+            for (var w = 0; w < width; w++) {                
+                document.getElementById(w + "-0").style.backgroundColor = (out0[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-1").style.backgroundColor = (out1[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-2").style.backgroundColor = (out2[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-3").style.backgroundColor = (out3[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-4").style.backgroundColor = (out4[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-5").style.backgroundColor = (out5[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-6").style.backgroundColor = (out6[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-7").style.backgroundColor = (out7[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-8").style.backgroundColor = (out8[w] == 1 ? "black" : "white");
+                document.getElementById(w + "-9").style.backgroundColor = (out9[w] == 1 ? "black" : "white");
+            }
+        }
+    }
+
+    function prep() {
+        var idx = -1;
+        // pad spaces so letters come left to right
+        for (var c = 0; c < width; c++) {
+            idx++;
+            row0[idx] = 0;
+            row1[idx] = 0;
+            row2[idx] = 0;
+            row3[idx] = 0;
+            row4[idx] = 0;
+            row5[idx] = 0;
+            row6[idx] = 0;
+            row7[idx] = 0;
+            row8[idx] = 0;
+            row9[idx] = 0;
+        }
+
+        for (var c = 0; c < sentence.length; c++) {
+            for (var p = 0; p < sentence[c].A.length; p++) {
+                idx++;
+                row0[idx] = 0;
+                row1[idx] = 0;
+                row2[idx] = sentence[c].A[p];
+                row3[idx] = sentence[c].B[p];
+                row4[idx] = sentence[c].C[p];
+                row5[idx] = sentence[c].E[p];
+                row6[idx] = sentence[c].F[p];
+                if (typeof sentence[c].G != "undefined")
+                    row7[idx] = sentence[c].G[p];
+                row8[idx] = 0;
+                row9[idx] = 0;
+            }
+        }
+        
+        // pad spaces so letters come left to right
+        for (var w = 0; c < 5; c++) {
+            idx++;
+            row0[idx] = 0;
+            row1[idx] = 0;
+            row2[idx] = 0;
+            row3[idx] = 0;
+            row4[idx] = 0;
+            row5[idx] = 0;
+            row6[idx] = 0;
+            row7[idx] = 0;
+            row8[idx] = 0;
+            row9[idx] = 0;
+        }                
+
+        maxIdex = idx;
+    }
+
+    buildTable();
+
+    prep();
+    index = 0;
+    var tmr = setInterval(runIt, 350);
+
+</script>
